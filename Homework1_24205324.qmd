@@ -37,7 +37,7 @@ These statistics suggest that **assault** is the dominant form of violent crime 
 ## Grouping States by Urban Population
 
 ```{r}
-# Create a categorical variable based on UrbanPop
+# Create a categorical variable based on Urban Population - second change - edited comment
 USArrests$UrbanGroup <- cut(USArrests$UrbanPop,
                             breaks = c(0, 50, 75, 100),
                             labels = c("Low", "Medium", "High"))
