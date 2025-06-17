@@ -62,7 +62,7 @@ boxplot(Rape ~ UrbanGroup, data = USArrests,
         main = "Rape Arrests by Urbanization Level",
         xlab = "Urbanization Level",
         ylab = "Rape Arrests per 100,000",
-        col = c("pink", "beige", "maroon"),
+        col = c("red", "beige", "maroon"),#first change
         border = "gray40")
 ```
 
