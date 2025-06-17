@@ -1,0 +1,79 @@
+---
+title: "Homework 1: USArrests Dataset Analysis"
+subtitle: "Advanced Data Programming with R"
+author: "Anekha Kallath (24205324)"
+date: today
+format:
+  html:
+    theme: minty
+execute:
+  echo: false
+  warning: false
+  message: false
+---
+
+## Introduction
+
+The in-built R dataset *`USArrests`* is used for this homework. This dataset contains crime statistics for **50** **US states** from **1973**.
+
+The dataset contains statistics on:
+
+-   **Murder**, **Assault**, and **Rape** (arrest rates per 100,000 people)
+-   **UrbanPop** : percentage of urban population
+
+```{r}
+summary(USArrests)
+```
+
+### Summary:
+
+-   **Murder** rates range from **0.8** to **17.4**, with a mean of **7.79**
+-   **Assault** is the most prevalent crime, with values ranging from **45** to **337**, and a high mean of **170.8**
+-   **UrbanPop**, the percentage of people living in urban areas, ranges from **32%** to **91%**, with a median of **66%**
+-   **Rape** arrests range from **7.3** to **46.0**, with a mean of **21.23**
+
+These statistics suggest that **assault** is the dominant form of violent crime in the dataset, while urbanization levels vary considerably across the 50 states.
+
+## Grouping States by Urban Population
+
+```{r}
+# Create a categorical variable based on UrbanPop
+USArrests$UrbanGroup <- cut(USArrests$UrbanPop,
+                            breaks = c(0, 50, 75, 100),
+                            labels = c("Low", "Medium", "High"))
+```
+
+```{r}
+# Check how many states fall into each group
+table(USArrests$UrbanGroup)
+```
+
+-   **Low**: ***9*** states with low urban population
+-   **Medium**: ***27*** states with moderate urban population
+-   **High**: ***14*** states with high urban population
+
+## Urban Population vs Rape Arrests Plot
+
+The urban population categorised into the three groups previously is plotted against the arrests registered for rape cases.
+
+```{r}
+# Boxplot of rape arrest rates grouped by urban population categories
+boxplot(Rape ~ UrbanGroup, data = USArrests,
+        main = "Rape Arrests by Urbanization Level",
+        xlab = "Urbanization Level",
+        ylab = "Rape Arrests per 100,000",
+        col = c("pink", "beige", "maroon"),
+        border = "gray40")
+```
+
+### Conclusion:
+
+The boxplot compares **rape arrest rates** (per 100,000 residents) across three levels of urbanization:
+
+-   **Low Urbanization** states tend to have the lowest rape arrest rates with a tighter spread and a lower median.
+
+-   **Medium Urbanization** states show a wider range of rape arrest rates, including one or two higher outliers.
+
+-   **High Urbanization** states generally have **higher median rape arrest rates** and a broader spread, indicating greater variability and higher extremes.
+
+There is a visible trend where **rape arrest rates increase** with **higher urban population** levels. This pattern may reflect increased reporting, better law enforcement presence in urban areas, or actual higher crime incidence.
